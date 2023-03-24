@@ -1,3 +1,4 @@
+import MovieSearchBar from "@/components/movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 
 export interface MovieListPageProps {
@@ -11,6 +12,7 @@ export default async function MovieListPage({ params }: MovieListPageProps) {
   });
 
   return <div>
+    <MovieSearchBar/>
     {
       getMovieListItems.map((listItem) => {
         return <div>

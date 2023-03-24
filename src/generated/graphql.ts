@@ -239,6 +239,13 @@ export type GetMovieListsQueryVariables = Exact<{
 
 export type GetMovieListsQuery = { getMovieLists: Array<{ name: string, id: number, created_at: string, email: string }> };
 
+export type SearchMovieByTitleQueryVariables = Exact<{
+  title: Scalars['String'];
+}>;
+
+
+export type SearchMovieByTitleQuery = { searchMovieByTitle?: Array<{ Poster?: string | null, Title?: string | null, Type?: string | null, Year?: string | null, imdbID?: string | null } | null> | null };
+
 
 export const CreateListDocument = /*#__PURE__*/ gql`
     mutation CreateList($createListInput: CreateListInput!) {
@@ -270,6 +277,17 @@ export const GetMovieListsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const SearchMovieByTitleDocument = /*#__PURE__*/ gql`
+    query SearchMovieByTitle($title: String!) {
+  searchMovieByTitle(title: $title) {
+    Poster
+    Title
+    Type
+    Year
+    imdbID
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -286,6 +304,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetMovieLists(variables: GetMovieListsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListsQuery>(GetMovieListsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovieLists', 'query');
+    },
+    SearchMovieByTitle(variables: SearchMovieByTitleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchMovieByTitleQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchMovieByTitleQuery>(SearchMovieByTitleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchMovieByTitle', 'query');
     }
   };
 }
