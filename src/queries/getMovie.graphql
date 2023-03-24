@@ -1,0 +1,32 @@
+query GetMovie($imdbId: String!) {
+  searchMovieById(id: $imdbId) {
+    Title
+    Year
+    Rated
+    Released
+    Runtime
+    Director
+    Genre
+    Writer
+    Actors
+    Plot
+    Language
+    Country
+    Awards
+    Poster
+    Ratings {
+      Source
+      Value
+    }
+    Metascore
+    imdbRating
+    Type
+    imdbVotes
+    imdbID
+    DVD
+    BoxOffice
+    Production
+    Website
+    Response
+  }
+}

@@ -3,6 +3,7 @@ import { MovieList as MovieListData, MovieList, MovieListItem, SearchMovie } fro
 import MovieSearchBar from "../movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 import { useState } from "react";
+import Link from "next/link";
 
 interface MovieListProps {
   list: MovieListData;
@@ -26,11 +27,13 @@ export default function MovieListView({ list, items }: MovieListProps) {
   return <div>
     <MovieSearchBar onAdd={onAdd}/>
     {
-      movies.map((item) => {
-        return <div>
-          {item.movie.Title}
+      movies.map((item) => (
+        <div key={item.id}>
+          <Link href={`/movie/${item.imdb_id}`}>
+            {item.movie.Title}
+          </Link>
         </div>
-      })
+      ))
     }
   </div>;
 }

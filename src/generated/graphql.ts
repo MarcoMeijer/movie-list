@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
+import * as Dom from 'graphql-request/src/types.dom';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -233,6 +233,13 @@ export type CreateListMutationVariables = Exact<{
 
 export type CreateListMutation = { createList: { created_at: string, email: string, id: number, name: string } };
 
+export type GetMovieQueryVariables = Exact<{
+  imdbId: Scalars['String'];
+}>;
+
+
+export type GetMovieQuery = { searchMovieById?: { Title?: string | null, Year?: string | null, Rated?: string | null, Released?: string | null, Runtime?: string | null, Director?: string | null, Genre?: string | null, Writer?: string | null, Actors?: string | null, Plot?: string | null, Language?: string | null, Country?: string | null, Awards?: string | null, Poster?: string | null, Metascore?: string | null, imdbRating?: string | null, Type?: string | null, imdbVotes?: string | null, imdbID?: string | null, DVD?: string | null, BoxOffice?: string | null, Production?: string | null, Website?: string | null, Response?: string | null, Ratings?: Array<{ Source?: string | null, Value?: string | null } | null> | null } | null };
+
 export type GetMovieListQueryVariables = Exact<{
   listId: Scalars['Int'];
 }>;
@@ -277,6 +284,40 @@ export const CreateListDocument = /*#__PURE__*/ gql`
     email
     id
     name
+  }
+}
+    `;
+export const GetMovieDocument = /*#__PURE__*/ gql`
+    query GetMovie($imdbId: String!) {
+  searchMovieById(id: $imdbId) {
+    Title
+    Year
+    Rated
+    Released
+    Runtime
+    Director
+    Genre
+    Writer
+    Actors
+    Plot
+    Language
+    Country
+    Awards
+    Poster
+    Ratings {
+      Source
+      Value
+    }
+    Metascore
+    imdbRating
+    Type
+    imdbVotes
+    imdbID
+    DVD
+    BoxOffice
+    Production
+    Website
+    Response
   }
 }
     `;
@@ -335,6 +376,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     CreateList(variables: CreateListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateListMutation>(CreateListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateList', 'mutation');
+    },
+    GetMovie(variables: GetMovieQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMovieQuery>(GetMovieDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovie', 'query');
     },
     GetMovieList(variables: GetMovieListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListQuery>(GetMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovieList', 'query');
