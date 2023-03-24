@@ -3,7 +3,7 @@ import { sdk } from "@/lib/client";
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const res = await sdk.Query({
+  const res = await sdk.GetMovieLists({
     email: EMAIL,
   });
 

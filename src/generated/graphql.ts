@@ -207,16 +207,39 @@ export type TodoListItem = {
   todo_list_id: Scalars["Int"];
 };
 
-export type QueryQueryVariables = Exact<{
+export type GetMovieListItemsQueryVariables = Exact<{
+  listId: Scalars["Int"];
+}>;
+
+export type GetMovieListItemsQuery = {
+  getMovieListItems: Array<{
+    id: number;
+    created_at: string;
+    movie_list_id: number;
+    imdb_id: string;
+  }>;
+};
+
+export type GetMovieListsQueryVariables = Exact<{
   email: Scalars["String"];
 }>;
 
-export type QueryQuery = {
+export type GetMovieListsQuery = {
   getMovieLists: Array<{ name: string; id: number; created_at: string }>;
 };
 
-export const QueryDocument = /*#__PURE__*/ gql`
-  query Query($email: String!) {
+export const GetMovieListItemsDocument = /*#__PURE__*/ gql`
+  query GetMovieListItems($listId: Int!) {
+    getMovieListItems(listId: $listId) {
+      id
+      created_at
+      movie_list_id
+      imdb_id
+    }
+  }
+`;
+export const GetMovieListsDocument = /*#__PURE__*/ gql`
+  query GetMovieLists($email: String!) {
     getMovieLists(email: $email) {
       name
       id
@@ -242,17 +265,32 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
-    Query(
-      variables: QueryQueryVariables,
+    GetMovieListItems(
+      variables: GetMovieListItemsQueryVariables,
       requestHeaders?: Dom.RequestInit["headers"]
-    ): Promise<QueryQuery> {
+    ): Promise<GetMovieListItemsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<QueryQuery>(QueryDocument, variables, {
+          client.request<GetMovieListItemsQuery>(
+            GetMovieListItemsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "GetMovieListItems",
+        "query"
+      );
+    },
+    GetMovieLists(
+      variables: GetMovieListsQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<GetMovieListsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetMovieListsQuery>(GetMovieListsDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        "Query",
+        "GetMovieLists",
         "query"
       );
     },
