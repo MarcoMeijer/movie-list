@@ -4,7 +4,9 @@ import MovieSearchBar from "../movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "../button/Button";
+import KebabMenu from "../kebabMenu/KebabMenu";
+import styles from "./MovieList.module.css"
+import KebabMenuButton from "../kebabMenu/KebabMenuButton";
 
 interface MovieListProps {
   list: MovieListData;
@@ -32,16 +34,21 @@ export default function MovieListView({ list, items }: MovieListProps) {
 
   return <div>
     <MovieSearchBar onAdd={onAdd}/>
+    <div className={styles.movieList}>
     {
       movies.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className={styles.movie}>
           <Link href={`/movie/${item.imdb_id}`}>
             {item.movie.Title}
           </Link>
-          <Button title="remove" onClick={() => removeMovie(item.id)}/>
+          <div className={styles.flex}/>
+          <KebabMenu>
+            <KebabMenuButton title="remove" onClick={() => removeMovie(item.id)}/>
+          </KebabMenu>
         </div>
       ))
     }
+    </div>
   </div>;
 }
 

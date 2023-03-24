@@ -1,0 +1,45 @@
+.kebabMenu {
+  display: flex;
+  position: relative;
+  flex: 0;
+}
+
+.kebabButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.kebabButton:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  padding-top: 120%;
+  border-radius: 100%;
+  background-color: #77777744;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease-out;
+}
+
+.kebabButton:hover:before {
+  width: 0;
+  padding-top: 0;
+}
+
+.kebabButton:active:before {
+  width: 120%;
+  padding-top: 120%;
+  opacity: 1;
+  transition: width 0.24s ease-out, padding-top 0.2s ease-out;
+}

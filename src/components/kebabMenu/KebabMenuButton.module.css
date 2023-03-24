@@ -1,0 +1,14 @@
+.button {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 7px;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: #eeeeee;
+}
+
