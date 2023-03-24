@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "../button/Button";
 import { sdk } from "@/lib/client";
 import { EMAIL } from "@/constants/email";
+import Link from "next/link";
 
 export interface MovieListsProps {
   lists: MovieList[];
@@ -29,8 +30,12 @@ export default function MovieLists({ lists }: MovieListsProps) {
   };
 
   return <div>
-    {movies.map((list) => (
-      <p key={list.id}>{list.name}</p>
+    {movies.map(({ id, name }) => (
+      <div>
+        <Link key={id} href={`/my-lists/${id}`}>
+          {name}
+        </Link>
+      </div>
     ))}
     <Input title="List name:" value={movieName} setValue={setMovieName}/>
     <Button title="Create list" onClick={createList}/>
