@@ -1,0 +1,9 @@
+mutation CreateList($createListInput: CreateListInput!) {
+  createList(input: $createListInput) {
+    created_at
+    email
+    id
+    name
+  }
+}
+

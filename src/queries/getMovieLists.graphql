@@ -3,5 +3,6 @@ query GetMovieLists($email: String!) {
     name
     id
     created_at
+    email
   }
 }
