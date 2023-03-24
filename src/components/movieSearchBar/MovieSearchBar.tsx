@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import styles from "./MovieSearchBar.module.css"
 import { sdk } from "@/lib/client";
@@ -10,7 +9,11 @@ function filterNull<T>(x: null | T): x is T {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export default function MovieSearchBar(): JSX.Element {
+export interface MovieSearchBarProps {
+  onAdd: (movie: SearchMovie) => void;
+}
+
+export default function MovieSearchBar({ onAdd }: MovieSearchBarProps): JSX.Element {
   const [value, setValue] = useState("");
   const [searchResult, setSearchResult] = useState<SearchMovie[]>([]);
 
@@ -53,10 +56,10 @@ export default function MovieSearchBar(): JSX.Element {
       onChange={(event) => setValue(event.target.value)}
     />
     {
-      searchResult.map((result) => (
-        <div className={styles.searchItem}>
-          <h1>{result.Title}</h1>
-          <p>{result.Type} - {result.Year}</p>
+      searchResult.map((movie) => (
+        <div className={styles.searchItem} onClick={() => onAdd(movie)}>
+          <h1>{movie.Title}</h1>
+          <p>{movie.Type} - {movie.Year}</p>
         </div>
       ))
     }

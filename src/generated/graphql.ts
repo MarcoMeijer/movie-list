@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/src/types.dom';
+import * as Dom from 'graphql-request/dist/types.dom';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -218,6 +218,14 @@ export type TodoListItem = {
   todo_list_id: Scalars['Int'];
 };
 
+export type AddMovieMutationVariables = Exact<{
+  imdbId: Scalars['String'];
+  listId: Scalars['Int'];
+}>;
+
+
+export type AddMovieMutation = { addMovie: { id: number, created_at: string, imdb_id: string, movie_list_id: number, movie: { Title?: string | null, Year?: string | null, Poster?: string | null } } };
+
 export type CreateListMutationVariables = Exact<{
   createListInput: CreateListInput;
 }>;
@@ -225,12 +233,12 @@ export type CreateListMutationVariables = Exact<{
 
 export type CreateListMutation = { createList: { created_at: string, email: string, id: number, name: string } };
 
-export type GetMovieListItemsQueryVariables = Exact<{
+export type GetMovieListQueryVariables = Exact<{
   listId: Scalars['Int'];
 }>;
 
 
-export type GetMovieListItemsQuery = { getMovieListItems: Array<{ id: number, created_at: string, movie_list_id: number, imdb_id: string }> };
+export type GetMovieListQuery = { getMovieList: { id: number, created_at: string, name: string, email: string }, getMovieListItems: Array<{ id: number, imdb_id: string, movie_list_id: number, created_at: string, movie: { Title?: string | null, Year?: string | null, Poster?: string | null } }> };
 
 export type GetMovieListsQueryVariables = Exact<{
   email: Scalars['String'];
@@ -247,6 +255,21 @@ export type SearchMovieByTitleQueryVariables = Exact<{
 export type SearchMovieByTitleQuery = { searchMovieByTitle?: Array<{ Poster?: string | null, Title?: string | null, Type?: string | null, Year?: string | null, imdbID?: string | null } | null> | null };
 
 
+export const AddMovieDocument = /*#__PURE__*/ gql`
+    mutation AddMovie($imdbId: String!, $listId: Int!) {
+  addMovie(imdbId: $imdbId, listId: $listId) {
+    id
+    created_at
+    imdb_id
+    movie_list_id
+    movie {
+      Title
+      Year
+      Poster
+    }
+  }
+}
+    `;
 export const CreateListDocument = /*#__PURE__*/ gql`
     mutation CreateList($createListInput: CreateListInput!) {
   createList(input: $createListInput) {
@@ -257,13 +280,24 @@ export const CreateListDocument = /*#__PURE__*/ gql`
   }
 }
     `;
-export const GetMovieListItemsDocument = /*#__PURE__*/ gql`
-    query GetMovieListItems($listId: Int!) {
-  getMovieListItems(listId: $listId) {
+export const GetMovieListDocument = /*#__PURE__*/ gql`
+    query GetMovieList($listId: Int!) {
+  getMovieList(id: $listId) {
     id
     created_at
-    movie_list_id
+    name
+    email
+  }
+  getMovieListItems(listId: $listId) {
+    id
     imdb_id
+    movie_list_id
+    created_at
+    movie {
+      Title
+      Year
+      Poster
+    }
   }
 }
     `;
@@ -296,11 +330,14 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    AddMovie(variables: AddMovieMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AddMovieMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AddMovieMutation>(AddMovieDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AddMovie', 'mutation');
+    },
     CreateList(variables: CreateListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateListMutation>(CreateListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateList', 'mutation');
     },
-    GetMovieListItems(variables: GetMovieListItemsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListItemsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListItemsQuery>(GetMovieListItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovieListItems', 'query');
+    GetMovieList(variables: GetMovieListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListQuery>(GetMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovieList', 'query');
     },
     GetMovieLists(variables: GetMovieListsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListsQuery>(GetMovieListsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMovieLists', 'query');

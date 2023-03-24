@@ -1,5 +1,5 @@
-import MovieSearchBar from "@/components/movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
+import MovieListView from "@/components/movieList/MovieList";
 
 export interface MovieListPageProps {
   params: { listId: string };
@@ -7,18 +7,11 @@ export interface MovieListPageProps {
 
 export default async function MovieListPage({ params }: MovieListPageProps) {
   const listId = parseInt(params.listId)
-  const { getMovieListItems } = await sdk.GetMovieListItems({
+  const { getMovieList, getMovieListItems } = await sdk.GetMovieList({
     listId
   });
 
   return <div>
-    <MovieSearchBar/>
-    {
-      getMovieListItems.map((listItem) => {
-        return <div>
-          {listItem.imdb_id}
-        </div>
-      })
-    }
+    <MovieListView list={getMovieList} items={getMovieListItems} />
   </div>;
 }

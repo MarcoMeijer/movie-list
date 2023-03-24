@@ -1,0 +1,19 @@
+query GetMovieList($listId: Int!) {
+  getMovieList(id: $listId) {
+    id
+    created_at
+    name
+    email
+  }
+  getMovieListItems(listId: $listId) {
+    id
+    imdb_id
+    movie_list_id
+    created_at
+    movie {
+      Title
+      Year
+      Poster
+    }
+  }
+}
