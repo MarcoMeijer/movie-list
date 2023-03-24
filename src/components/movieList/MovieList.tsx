@@ -4,6 +4,7 @@ import MovieSearchBar from "../movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 import { useState } from "react";
 import Link from "next/link";
+import { Button } from "../button/Button";
 
 interface MovieListProps {
   list: MovieListData;
@@ -24,6 +25,11 @@ export default function MovieListView({ list, items }: MovieListProps) {
     ]);
   };
 
+  const removeMovie = async (movieId: number) => {
+    await sdk.RemoveMovie({ movieId, listId: list.id });
+    setMovies(movies.filter(({ id }) => id !== movieId));
+  };
+
   return <div>
     <MovieSearchBar onAdd={onAdd}/>
     {
@@ -32,6 +38,7 @@ export default function MovieListView({ list, items }: MovieListProps) {
           <Link href={`/movie/${item.imdb_id}`}>
             {item.movie.Title}
           </Link>
+          <Button title="remove" onClick={() => removeMovie(item.id)}/>
         </div>
       ))
     }

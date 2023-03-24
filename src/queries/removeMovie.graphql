@@ -1,0 +1,3 @@
+mutation RemoveMovie($movieId: Int!, $listId: Int!) {
+  removeMovie(id: $movieId, listId: $listId)
+}
