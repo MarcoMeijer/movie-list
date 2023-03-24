@@ -11,19 +11,25 @@ export interface MovieListsProps {
 }
 
 export default function MovieLists({ lists }: MovieListsProps) {
+  const [movies, setMovies] = useState(lists);
   const [movieName, setMovieName] = useState("");
 
   const createList = async () => {
-    await sdk.CreateList({
+    const { createList } = await sdk.CreateList({
       createListInput: {
         email: EMAIL,
         name: movieName,
       }
-    })
+    });
+
+    setMovies([
+      ...movies,
+      createList,
+    ]);
   };
 
   return <div>
-    {lists.map((list) => (
+    {movies.map((list) => (
       <p key={list.id}>{list.name}</p>
     ))}
     <Input title="List name:" value={movieName} setValue={setMovieName}/>
