@@ -14,7 +14,7 @@ export default function KebabIcon(props: SVGProps<SVGSVGElement>) {
       <path d="M0 0h24v24H0z" />
       <path
         d="M12 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM12 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-        stroke="#666"
+        stroke={props.fill}
         strokeWidth={2}
         strokeLinecap="round"
         strokeDasharray="0,0"

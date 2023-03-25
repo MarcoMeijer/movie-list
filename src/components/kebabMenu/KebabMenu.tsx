@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import DropDownPopup from "../dropDown/DropDownPopup";
-import KebabIcon from "./KebabIcon";
+import KebabIcon from "../icons/KebabIcon";
 import styles from "./KebabMenu.module.css";
 
 export interface KebabMenuProps {
@@ -13,7 +13,7 @@ export default function KebabMenu({ children }: KebabMenuProps) {
 
   return <div className={styles.kebabMenu}>
     <button className={styles.kebabButton} onClick={() => setOpen(true)}>
-      <KebabIcon />
+      <KebabIcon fill="#ffffff"/>
     </button>
     {open && (
       <DropDownPopup onClose={() => setOpen(false)}>

@@ -245,7 +245,7 @@ export type GetMovieListQueryVariables = Exact<{
 }>;
 
 
-export type GetMovieListQuery = { getMovieList: { id: number, created_at: string, name: string, email: string }, getMovieListItems: Array<{ id: number, imdb_id: string, movie_list_id: number, created_at: string, movie: { Title?: string | null, Year?: string | null, Poster?: string | null } }> };
+export type GetMovieListQuery = { getMovieList: { id: number, created_at: string, name: string, email: string }, getMovieListItems: Array<{ id: number, imdb_id: string, movie_list_id: number, created_at: string, movie: { Title?: string | null, Year?: string | null, Poster?: string | null, imdbRating?: string | null } }> };
 
 export type GetMovieListsQueryVariables = Exact<{
   email: Scalars['String'];
@@ -346,6 +346,7 @@ export const GetMovieListDocument = /*#__PURE__*/ gql`
       Title
       Year
       Poster
+      imdbRating
     }
   }
 }

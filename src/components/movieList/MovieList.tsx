@@ -1,12 +1,11 @@
 "use client";
-import { MovieList as MovieListData, MovieList, MovieListItem, SearchMovie } from "@/generated/graphql";
+import { MovieList as MovieListData, MovieListItem, SearchMovie } from "@/generated/graphql";
 import MovieSearchBar from "../movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 import { useState } from "react";
-import Link from "next/link";
-import KebabMenu from "../kebabMenu/KebabMenu";
 import styles from "./MovieList.module.css"
 import KebabMenuButton from "../kebabMenu/KebabMenuButton";
+import MovieItem from "../movieItem/MovieItem";
 
 interface MovieListProps {
   list: MovieListData;
@@ -32,20 +31,14 @@ export default function MovieListView({ list, items }: MovieListProps) {
     setMovies(movies.filter(({ id }) => id !== movieId));
   };
 
-  return <div>
+  return <div className={styles.movieListView}>
     <MovieSearchBar onAdd={onAdd}/>
     <div className={styles.movieList}>
     {
       movies.map((item) => (
-        <div key={item.id} className={styles.movie}>
-          <Link href={`/movie/${item.imdb_id}`}>
-            {item.movie.Title}
-          </Link>
-          <div className={styles.flex}/>
-          <KebabMenu>
-            <KebabMenuButton title="remove" onClick={() => removeMovie(item.id)}/>
-          </KebabMenu>
-        </div>
+        <MovieItem movie={item}>
+          <KebabMenuButton title="remove" onClick={() => removeMovie(item.id)}/>
+        </MovieItem>
       ))
     }
     </div>

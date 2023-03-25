@@ -1,21 +1,12 @@
-.movie {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 40px;
-}
-
-.movie:not(:nth-child(1)) {
-  border-top: 1px #dddddd solid;
-}
-
-.flex {
-  display: flex;
-  flex: 1;
-}
-
 .movieList {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.movieListView {
+  display: flex;
   flex-direction: column;
-  max-width: 500px;
+  align-items: center;
+  justify-content: center;
 }
