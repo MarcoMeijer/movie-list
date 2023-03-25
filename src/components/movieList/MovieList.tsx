@@ -37,6 +37,7 @@ export default function MovieListView({ list, items }: MovieListProps) {
 
   return (
     <div className={styles.movieListView}>
+      <h1>{list.name}</h1>
       <MovieSearchBar onAdd={onAdd} />
       <div className={styles.movieList}>
         {movies.map((item) => (
