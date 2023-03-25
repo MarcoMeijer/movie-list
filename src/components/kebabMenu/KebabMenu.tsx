@@ -11,7 +11,7 @@ export interface KebabMenuProps {
 export default function KebabMenu({ children }: KebabMenuProps) {
   const [open, setOpen] = useState(false);
 
-  const onOpen = useCallback(() => setOpen(false), []);
+  const onOpen = useCallback(() => setOpen(true), []);
   const onClose = useCallback(() => setOpen(false), []);
 
   return (
