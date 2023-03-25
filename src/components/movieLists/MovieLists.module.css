@@ -1,0 +1,26 @@
+.lists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #222222;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 400px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  flex: 1;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
