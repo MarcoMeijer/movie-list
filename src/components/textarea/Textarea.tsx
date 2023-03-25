@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InputBox from "../inputBox/InputBox";
 import styles from "./Textarea.module.css";
 
 export interface TextareaProps {
@@ -22,8 +23,7 @@ export default function Textarea({
   const onBlur = () => setFocused(false);
 
   return (
-    <div className={focused ? styles.focused : styles.unfocused}>
-      {title && <p className={styles.title}>{title}</p>}
+    <InputBox title={title} focused={focused}>
       <textarea
         className={styles.textarea}
         placeholder={placeholder}
@@ -35,6 +35,6 @@ export default function Textarea({
       <p className={styles.counter}>
         {maxLength !== undefined && value && `${value.length}/${maxLength}`}
       </p>
-    </div>
+    </InputBox>
   );
 }

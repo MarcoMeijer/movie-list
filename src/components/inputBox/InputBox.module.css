@@ -1,0 +1,42 @@
+.focused,
+.unfocused {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #333333;
+}
+
+.unfocused {
+  border-color: #1e1e1e;
+}
+
+.unfocused:hover {
+  border-color: #777777;
+}
+
+.focused {
+  border-color: #3c85de;
+}
+
+.title {
+  margin: 0;
+  font-size: 13px;
+}
+
+.unfocused .title {
+  color: #b0b0b0;
+}
+
+.focused .title {
+  color: #3c85de;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

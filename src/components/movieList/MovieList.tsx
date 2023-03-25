@@ -10,6 +10,8 @@ import { useState } from "react";
 import styles from "./MovieList.module.css";
 import KebabMenuButton from "../kebabMenu/KebabMenuButton";
 import MovieItem from "../movieItem/MovieItem";
+import { modals } from "@/modals/ModalsWrapper";
+import { EMAIL } from "@/constants/email";
 
 interface MovieListProps {
   list: MovieListData;
@@ -18,6 +20,7 @@ interface MovieListProps {
 
 export default function MovieListView({ list, items }: MovieListProps) {
   const [movies, setMovies] = useState(items);
+  const { setModal } = modals.useModal();
 
   const onAdd = async (movie: SearchMovie) => {
     const { addMovie } = await sdk.AddMovie({
@@ -39,8 +42,20 @@ export default function MovieListView({ list, items }: MovieListProps) {
         {movies.map((item) => (
           <MovieItem movie={item} key={item.id}>
             <KebabMenuButton
-              title="remove"
+              title="Remove"
               onClick={() => removeMovie(item.id)}
+            />
+            <KebabMenuButton
+              title="Add to list"
+              onClick={async () => {
+                const { getMovieLists } = await sdk.GetMovieLists({
+                  email: EMAIL,
+                });
+                setModal("addToList", {
+                  imdbId: item.imdb_id,
+                  options: getMovieLists,
+                });
+              }}
             />
           </MovieItem>
         ))}

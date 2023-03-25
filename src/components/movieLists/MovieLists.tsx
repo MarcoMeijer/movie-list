@@ -1,6 +1,5 @@
 "use client";
 import { MovieList } from "@/generated/graphql";
-import Input from "../input/input";
 import { useState } from "react";
 import { Button } from "../button/Button";
 import { sdk } from "@/lib/client";
