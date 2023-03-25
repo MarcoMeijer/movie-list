@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import "./globals.css";
+import ModalsWrapper from "@/modals/ModalsWrapper";
 
 export const metadata = {
   title: "Movie list app",
@@ -14,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main>{children}</main>
+        <ModalsWrapper>
+          <Navbar />
+          <main>{children}</main>
+        </ModalsWrapper>
       </body>
     </html>
   );
