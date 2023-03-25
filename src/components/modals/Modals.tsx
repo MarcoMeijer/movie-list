@@ -89,7 +89,6 @@ function useModalInternal<T extends ModalParamList>(): ModalContext<T> {
   );
 
   const setModal = <K extends keyof T>(name: K, props: T[K]) => {
-    console.log("test2");
     if (currentModal?.name !== name) {
       setCurrentModal({ name, props });
     }
