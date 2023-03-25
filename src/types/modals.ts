@@ -1,3 +1,3 @@
 export type ModalTypes = {
-  createList: undefined;
+  createList: { onCreate: (listName: string) => void };
 };

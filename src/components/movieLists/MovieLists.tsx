@@ -14,19 +14,21 @@ export interface MovieListsProps {
 
 export default function MovieLists({ lists }: MovieListsProps) {
   const [movies, setMovies] = useState(lists);
-  const [movieName, setMovieName] = useState("");
   const { setModal } = modals.useModal();
 
   const createList = async () => {
-    setModal("createList", undefined);
-    // const { createList } = await sdk.CreateList({
-    //   createListInput: {
-    //     email: EMAIL,
-    //     name: movieName,
-    //   },
-    // });
+    setModal("createList", {
+      onCreate: async (movieName) => {
+        const { createList } = await sdk.CreateList({
+          createListInput: {
+            email: EMAIL,
+            name: movieName,
+          },
+        });
 
-    // setMovies([...movies, createList]);
+        setMovies([...movies, createList]);
+      },
+    });
   };
 
   return (
