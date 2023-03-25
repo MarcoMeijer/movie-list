@@ -1,0 +1,61 @@
+.focused, .unfocused {
+  flex: 1;
+  align-items: stretch;
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #333333;
+}
+
+.unfocused {
+  border-color: #1e1e1e;
+}
+
+.unfocused:hover {
+  border-color: #777777;
+}
+
+.focused {
+  border-color: #3c85de;
+}
+
+.title {
+  margin: 0;
+  font-size: 13px;
+}
+
+.unfocused .title {
+  color: #b0b0b0;
+}
+
+.focused .title {
+  color: #3c85de;
+}
+
+.textarea {
+  border: none !important;
+  outline: none !important;
+  background-color: transparent;
+  resize: none;
+  min-height: 32px;
+  font-size: 16px;
+  margin: 0px;
+  color: white;
+}
+
+.textarea::placeholder {
+  color: #c0c0c0;
+}
+
+.counter {
+  display: flex;
+  justify-content: flex-end;
+  height: 14px;
+  color: #c0c0c0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.unfocused .counter {
+  opacity: 0;
+}
