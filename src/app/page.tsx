@@ -9,8 +9,6 @@ export default async function Home() {
   });
 
   return (
-    <main className={styles.main}>
-      <MovieLists lists={res.getMovieLists}/>
-    </main>
+    <MovieLists lists={res.getMovieLists}/>
   );
 }
