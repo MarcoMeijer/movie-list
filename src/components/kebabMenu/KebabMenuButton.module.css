@@ -1,14 +1,15 @@
 .button {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #222222;
   border: none;
   cursor: pointer;
   padding: 7px;
   user-select: none;
+  color: white;
 }
 
 .button:hover {
-  background-color: #eeeeee;
+  background-color: #444444;
 }
 
