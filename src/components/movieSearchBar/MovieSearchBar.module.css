@@ -1,3 +1,9 @@
+.container {
+  position: relative;
+  height: 30px;
+  width: 500px;
+}
+
 .searchBar {
   display: flex;
   flex-direction: column;
@@ -8,12 +14,16 @@
   background-color: #222222;
   overflow: hidden;
   box-shadow: 1px 2px 6px #00000066;
+  position: absolute;
+  z-index: 1;
+  top: 0;
 }
 
 .open {
   padding-bottom: 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  box-shadow: 1px 2px 8px #000000bb;
 }
 
 .searchBar > input {

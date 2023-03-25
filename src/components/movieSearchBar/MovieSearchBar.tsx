@@ -51,25 +51,27 @@ export default function MovieSearchBar({ onAdd }: MovieSearchBarProps): JSX.Elem
     };
   }, [value]);
 
-  return <div className={`${styles.searchBar} ${searchResult.length ? styles.open : "" }`}>
-    <input
-      value={value}
-      onChange={(event) => setValue(event.target.value)}
-    />
-    {
-      searchResult.map((movie) => (
-        <div className={styles.searchItem} onClick={() => onAdd(movie)}>
-          {
-            movie.Poster && movie.Poster !== "N/A" &&
-            <Image src={movie.Poster} width={32} height={48} alt={`poster ${movie.Title}`} style={{ marginRight: 10 }} />
-          }
-          <div className={styles.searchItemText}>
-            <h1>{movie.Title}</h1>
-            <p>{movie.Type} - {movie.Year}</p>
+  return <div className={styles.container}>
+    <div className={`${styles.searchBar} ${searchResult.length ? styles.open : "" }`}>
+      <input
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
+      {
+        searchResult.map((movie) => (
+          <div className={styles.searchItem} onClick={() => onAdd(movie)}>
+            {
+              movie.Poster && movie.Poster !== "N/A" &&
+              <Image src={movie.Poster} width={32} height={48} alt={`poster ${movie.Title}`} style={{ marginRight: 10 }} />
+            }
+            <div className={styles.searchItemText}>
+              <h1>{movie.Title}</h1>
+              <p>{movie.Type} - {movie.Year}</p>
+            </div>
           </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>;
 }
 
