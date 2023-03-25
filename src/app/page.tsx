@@ -7,7 +7,5 @@ export default async function Home() {
     email: EMAIL,
   });
 
-  return (
-    <MovieLists lists={res.getMovieLists}/>
-  );
+  return <MovieLists lists={res.getMovieLists} />;
 }

@@ -1,9 +1,13 @@
 "use client";
-import { MovieList as MovieListData, MovieListItem, SearchMovie } from "@/generated/graphql";
+import {
+  MovieList as MovieListData,
+  MovieListItem,
+  SearchMovie,
+} from "@/generated/graphql";
 import MovieSearchBar from "../movieSearchBar/MovieSearchBar";
 import { sdk } from "@/lib/client";
 import { useState } from "react";
-import styles from "./MovieList.module.css"
+import styles from "./MovieList.module.css";
 import KebabMenuButton from "../kebabMenu/KebabMenuButton";
 import MovieItem from "../movieItem/MovieItem";
 
@@ -20,10 +24,7 @@ export default function MovieListView({ list, items }: MovieListProps) {
       imdbId: movie.imdbID!!,
       listId: list.id,
     });
-    setMovies([
-      ...movies,
-      addMovie,
-    ]);
+    setMovies([...movies, addMovie]);
   };
 
   const removeMovie = async (movieId: number) => {
@@ -31,17 +32,19 @@ export default function MovieListView({ list, items }: MovieListProps) {
     setMovies(movies.filter(({ id }) => id !== movieId));
   };
 
-  return <div className={styles.movieListView}>
-    <MovieSearchBar onAdd={onAdd}/>
-    <div className={styles.movieList}>
-    {
-      movies.map((item) => (
-        <MovieItem movie={item}>
-          <KebabMenuButton title="remove" onClick={() => removeMovie(item.id)}/>
-        </MovieItem>
-      ))
-    }
+  return (
+    <div className={styles.movieListView}>
+      <MovieSearchBar onAdd={onAdd} />
+      <div className={styles.movieList}>
+        {movies.map((item) => (
+          <MovieItem movie={item} key={item.id}>
+            <KebabMenuButton
+              title="remove"
+              onClick={() => removeMovie(item.id)}
+            />
+          </MovieItem>
+        ))}
+      </div>
     </div>
-  </div>;
+  );
 }
-

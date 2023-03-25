@@ -6,12 +6,14 @@ export interface MovieListPageProps {
 }
 
 export default async function MovieListPage({ params }: MovieListPageProps) {
-  const listId = parseInt(params.listId)
+  const listId = parseInt(params.listId);
   const { getMovieList, getMovieListItems } = await sdk.GetMovieList({
-    listId
+    listId,
   });
 
-  return <div>
-    <MovieListView list={getMovieList} items={getMovieListItems} />
-  </div>;
+  return (
+    <div>
+      <MovieListView list={getMovieList} items={getMovieListItems} />
+    </div>
+  );
 }

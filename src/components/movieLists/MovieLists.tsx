@@ -20,25 +20,23 @@ export default function MovieLists({ lists }: MovieListsProps) {
       createListInput: {
         email: EMAIL,
         name: movieName,
-      }
+      },
     });
 
-    setMovies([
-      ...movies,
-      createList,
-    ]);
+    setMovies([...movies, createList]);
   };
 
-  return <div>
-    {movies.map(({ id, name }) => (
-      <div>
-        <Link key={id} href={`/my-lists/${id}`}>
-          {name}
-        </Link>
-      </div>
-    ))}
-    <Input title="List name:" value={movieName} setValue={setMovieName}/>
-    <Button title="Create list" onClick={createList}/>
-  </div>;
+  return (
+    <div>
+      {movies.map(({ id, name }) => (
+        <div key={id}>
+          <Link key={id} href={`/my-lists/${id}`}>
+            {name}
+          </Link>
+        </div>
+      ))}
+      <Input title="List name:" value={movieName} setValue={setMovieName} />
+      <Button title="Create list" onClick={createList} />
+    </div>
+  );
 }
-

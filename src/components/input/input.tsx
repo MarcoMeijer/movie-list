@@ -7,11 +7,16 @@ export interface InputProps {
 }
 
 export default function Input({ title, value, setValue }: InputProps) {
-  return <div>
-    <label>
-      {title}
-      <input type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
-    </label>
-  </div>;
+  return (
+    <div>
+      <label>
+        {title}
+        <input
+          type="text"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
+      </label>
+    </div>
+  );
 }
-

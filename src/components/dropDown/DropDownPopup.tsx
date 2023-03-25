@@ -7,13 +7,17 @@ export interface DropDownPopupProps {
   onClose: () => void;
 }
 
-export default function DropDownPopup({ children, onClose }: DropDownPopupProps) {
+export default function DropDownPopup({
+  children,
+  onClose,
+}: DropDownPopupProps) {
   const ref = useRef(null);
 
   useClickOutside(ref, onClose);
-  
-  return <div ref={ref} className={styles.popup}>
-    {children}
-  </div>;
-}
 
+  return (
+    <div ref={ref} className={styles.popup}>
+      {children}
+    </div>
+  );
+}
