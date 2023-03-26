@@ -1,6 +1,8 @@
 import Navbar from "./Navbar";
 import "./globals.css";
 import ModalsWrapper from "@/modals/ModalsWrapper";
+import { Suspense } from "react";
+import LoadingIndicator from "@/components/loadingIndicator/LoadingIndicator";
 
 export const metadata = {
   title: "Movie list app",
@@ -17,7 +19,9 @@ export default function RootLayout({
       <body>
         <ModalsWrapper>
           <Navbar />
-          <main>{children}</main>
+          <main>
+            <Suspense fallback={<LoadingIndicator />}>{children}</Suspense>
+          </main>
         </ModalsWrapper>
       </body>
     </html>
