@@ -222,6 +222,7 @@ export type AddMovieMutation = {
       Title?: string | null;
       Year?: string | null;
       Poster?: string | null;
+      imdbRating?: string | null;
     };
   };
 };
@@ -342,6 +343,7 @@ export const AddMovieDocument = /*#__PURE__*/ gql`
         Title
         Year
         Poster
+        imdbRating
       }
     }
   }
