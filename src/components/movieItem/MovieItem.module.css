@@ -7,6 +7,14 @@
 
 .poster {
   height: 268px;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.poster:hover {
+  transform: scale(1.2);
+  z-index: 4;
+  filter: brightness(60%);
 }
 
 .body {
