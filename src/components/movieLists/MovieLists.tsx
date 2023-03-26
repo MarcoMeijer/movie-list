@@ -42,6 +42,12 @@ export default function MovieLists({ lists }: MovieListsProps) {
   return (
     <div className={styles.lists}>
       <h1>Movie lists</h1>
+      {movies.length === 0 && (
+        <p>
+          You don&apos;t have any movie lists. Press the button below to create
+          one.
+        </p>
+      )}
       {movies.map(({ id, name }, i) => (
         <EntranceAnimation key={id} delay={0.1 * i}>
           <div className={styles.list}>

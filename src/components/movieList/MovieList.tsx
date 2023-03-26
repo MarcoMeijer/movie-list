@@ -41,6 +41,9 @@ export default function MovieListView({ list, items }: MovieListProps) {
       <h1>{list.name}</h1>
       <MovieSearchBar onAdd={onAdd} />
       <div className={styles.movieList}>
+        {movies.length === 0 && (
+          <p>This list is empty. Search for a movie to add it to this list.</p>
+        )}
         {movies.map((item, i) => (
           <EntranceAnimation key={item.id} delay={0.1 * i}>
             <MovieItem movie={item}>
