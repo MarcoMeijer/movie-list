@@ -72,7 +72,7 @@ export default function MovieSearchBar({
         <input
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          onFocus={() => setOpen(true)}
+          onFocus={() => setOpen(searchResult.length !== 0)}
         />
         {open &&
           searchResult.map((movie, i) => (
