@@ -9,6 +9,7 @@ import { modals } from "@/modals/ModalsWrapper";
 import styles from "./MovieLists.module.css";
 import KebabMenu from "../kebabMenu/KebabMenu";
 import KebabMenuButton from "../kebabMenu/KebabMenuButton";
+import EntranceAnimation from "../animation/EntranceAnimation";
 
 export interface MovieListsProps {
   lists: MovieList[];
@@ -41,15 +42,20 @@ export default function MovieLists({ lists }: MovieListsProps) {
   return (
     <div className={styles.lists}>
       <h1>Movie lists</h1>
-      {movies.map(({ id, name }) => (
-        <div key={id} className={styles.list}>
-          <Link href={`/my-lists/${id}`} className={styles.link}>
-            {name}
-          </Link>
-          <KebabMenu>
-            <KebabMenuButton title={"Delete"} onClick={() => deleteList(id)} />
-          </KebabMenu>
-        </div>
+      {movies.map(({ id, name }, i) => (
+        <EntranceAnimation key={id} delay={0.1 * i}>
+          <div className={styles.list}>
+            <Link href={`/my-lists/${id}`} className={styles.link}>
+              {name}
+            </Link>
+            <KebabMenu>
+              <KebabMenuButton
+                title={"Delete"}
+                onClick={() => deleteList(id)}
+              />
+            </KebabMenu>
+          </div>
+        </EntranceAnimation>
       ))}
       <Button title="Create list" onClick={createList} />
     </div>

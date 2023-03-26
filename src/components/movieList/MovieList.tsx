@@ -12,6 +12,7 @@ import KebabMenuButton from "../kebabMenu/KebabMenuButton";
 import MovieItem from "../movieItem/MovieItem";
 import { modals } from "@/modals/ModalsWrapper";
 import { EMAIL } from "@/constants/email";
+import EntranceAnimation from "../animation/EntranceAnimation";
 
 interface MovieListProps {
   list: MovieListData;
@@ -40,25 +41,27 @@ export default function MovieListView({ list, items }: MovieListProps) {
       <h1>{list.name}</h1>
       <MovieSearchBar onAdd={onAdd} />
       <div className={styles.movieList}>
-        {movies.map((item) => (
-          <MovieItem movie={item} key={item.id}>
-            <KebabMenuButton
-              title="Remove"
-              onClick={() => removeMovie(item.id)}
-            />
-            <KebabMenuButton
-              title="Add to list"
-              onClick={async () => {
-                const { getMovieLists } = await sdk.GetMovieLists({
-                  email: EMAIL,
-                });
-                setModal("addToList", {
-                  imdbId: item.imdb_id,
-                  options: getMovieLists,
-                });
-              }}
-            />
-          </MovieItem>
+        {movies.map((item, i) => (
+          <EntranceAnimation key={item.id} delay={0.1 * i}>
+            <MovieItem movie={item}>
+              <KebabMenuButton
+                title="Remove"
+                onClick={() => removeMovie(item.id)}
+              />
+              <KebabMenuButton
+                title="Add to list"
+                onClick={async () => {
+                  const { getMovieLists } = await sdk.GetMovieLists({
+                    email: EMAIL,
+                  });
+                  setModal("addToList", {
+                    imdbId: item.imdb_id,
+                    options: getMovieLists,
+                  });
+                }}
+              />
+            </MovieItem>
+          </EntranceAnimation>
         ))}
       </div>
     </div>

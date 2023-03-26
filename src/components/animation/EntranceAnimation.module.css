@@ -1,0 +1,20 @@
+.entranceAnimation {
+  display: flex;
+  flex: 0;
+  animation-fill-mode: backwards;
+  animation-name: animate-pop;
+  animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.28);
+  animation-duration: 0.5s;
+}
+
+@keyframes animate-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
