@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  color: #bbbbbb;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.container h1 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 4px;
+}
+
+.numbers p {
+  margin: 0;
+}
+
+.rating {
+  color: white;
+  font-size: 22px;
+}
+
+.votes {
+  font-size: 12px;
+}

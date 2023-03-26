@@ -1,4 +1,5 @@
 import StarIcon from "@/components/icons/StarIcon";
+import Rating from "@/components/rating/Rating";
 import { sdk } from "@/lib/client";
 import Image from "next/image";
 import styles from "./page.module.css";
@@ -18,20 +19,31 @@ export default async function MoviePage({
 
   return (
     <div className={styles.movieInfo}>
-      <h1 className={styles.title}>{movie.Title}</h1>
-      <div className={styles.underTitle}>
-        <p>{movie.Year}</p>
-        <p>{movie.Rated}</p>
-        <p>{movie.Runtime}</p>
-        <div className={styles.rating}>
-          <StarIcon
-            fill="#fbd341"
-            width={26}
-            height={26}
-            style={{ marginBottom: 4, marginRight: 4 }}
-          />
-          {movie.imdbRating}
+      <div className={styles.topBar}>
+        <div className={styles.titleDiv}>
+          <h1 className={styles.title}>{movie.Title}</h1>
+          <div className={styles.underTitle}>
+            <p>{movie.Year}</p>
+            <p>{movie.Rated}</p>
+            <p>{movie.Runtime}</p>
+          </div>
         </div>
+        {movie.imdbRating && movie.imdbVotes && (
+          <Rating
+            name={"IMDb rating"}
+            rating={`${movie.imdbRating}/10`}
+            voters={movie.imdbVotes}
+          />
+        )}
+        {movie.Ratings?.map((rating, i) => {
+          const source = rating?.Source;
+          const value = rating?.Value;
+          if (!source || !value || source === "Internet Movie Database") {
+            return;
+          }
+
+          return <Rating key={i} name={source} rating={value} />;
+        })}
       </div>
       <div className={styles.content}>
         <Image src={movie.Poster || ""} width={260} height={386} alt={""} />
