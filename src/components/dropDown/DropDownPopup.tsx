@@ -5,7 +5,7 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 export interface DropDownPopupProps {
   children?: React.ReactNode;
   onClose: () => void;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 export default function DropDownPopup({

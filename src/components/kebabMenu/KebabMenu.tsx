@@ -17,7 +17,7 @@ export default function KebabMenu({ children }: KebabMenuProps) {
   return (
     <div className={styles.kebabMenu}>
       <button className={styles.kebabButton} onClick={onOpen}>
-        <KebabIcon fill="#ffffff" />
+        <KebabIcon width={20} height={20} fill="#ffffff" />
       </button>
       {open && <DropDownPopup onClose={onClose}>{children}</DropDownPopup>}
     </div>
