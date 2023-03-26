@@ -6,14 +6,18 @@ export interface MovieListPageProps {
 }
 
 export default async function MovieListPage({ params }: MovieListPageProps) {
-  const listId = parseInt(params.listId);
-  const { getMovieList, getMovieListItems } = await sdk.GetMovieList({
-    listId,
-  });
+  try {
+    const listId = parseInt(params.listId);
+    const { getMovieList, getMovieListItems } = await sdk.GetMovieList({
+      listId,
+    });
 
-  return (
-    <div>
-      <MovieListView list={getMovieList} items={getMovieListItems} />
-    </div>
-  );
+    return (
+      <div>
+        <MovieListView list={getMovieList} items={getMovieListItems} />
+      </div>
+    );
+  } catch (error) {
+    throw new Error("Unable to find list with this id.");
+  }
 }

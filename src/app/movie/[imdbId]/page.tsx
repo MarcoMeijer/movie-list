@@ -13,7 +13,7 @@ export default async function MoviePage({
   const { searchMovieById: movie } = await sdk.GetMovie({ imdbId: imdbId });
 
   if (movie === null || movie === undefined) {
-    return <p>unable to find movie</p>;
+    throw new Error("Unable to find movie.");
   }
 
   return (
