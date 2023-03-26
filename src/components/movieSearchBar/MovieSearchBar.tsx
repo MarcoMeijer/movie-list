@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./MovieSearchBar.module.css";
 import { sdk } from "@/lib/client";
 import { SearchMovie } from "@/generated/graphql";
 import Image from "next/image";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 function filterNull<T>(x: null | T): x is T {
   return x !== null;
@@ -19,10 +20,17 @@ export default function MovieSearchBar({
 }: MovieSearchBarProps): JSX.Element {
   const [value, setValue] = useState("");
   const [searchResult, setSearchResult] = useState<SearchMovie[]>([]);
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useClickOutside(ref, () => {
+    setOpen(false);
+  });
 
   useEffect(() => {
     if (value === "") {
       setSearchResult([]);
+      setOpen(false);
       return;
     }
 
@@ -42,8 +50,10 @@ export default function MovieSearchBar({
       if (searchMovieByTitle !== null && searchMovieByTitle !== undefined) {
         const movies = searchMovieByTitle.filter(filterNull);
         setSearchResult(movies);
+        setOpen(true);
       } else {
         setSearchResult([]);
+        setOpen(false);
       }
     };
     f();
@@ -56,37 +66,38 @@ export default function MovieSearchBar({
   return (
     <div className={styles.container}>
       <div
-        className={`${styles.searchBar} ${
-          searchResult.length ? styles.open : ""
-        }`}
+        className={`${styles.searchBar} ${open ? styles.open : ""}`}
+        ref={ref}
       >
         <input
           value={value}
           onChange={(event) => setValue(event.target.value)}
+          onFocus={() => setOpen(true)}
         />
-        {searchResult.map((movie, i) => (
-          <div
-            className={styles.searchItem}
-            onClick={() => onAdd(movie)}
-            key={i}
-          >
-            {movie.Poster && movie.Poster !== "N/A" && (
-              <Image
-                src={movie.Poster}
-                width={32}
-                height={48}
-                alt={`poster ${movie.Title}`}
-                style={{ marginRight: 10 }}
-              />
-            )}
-            <div className={styles.searchItemText}>
-              <h1>{movie.Title}</h1>
-              <p>
-                {movie.Type} - {movie.Year}
-              </p>
+        {open &&
+          searchResult.map((movie, i) => (
+            <div
+              className={styles.searchItem}
+              onClick={() => onAdd(movie)}
+              key={i}
+            >
+              {movie.Poster && movie.Poster !== "N/A" && (
+                <Image
+                  src={movie.Poster}
+                  width={32}
+                  height={48}
+                  alt={`poster ${movie.Title}`}
+                  style={{ marginRight: 10 }}
+                />
+              )}
+              <div className={styles.searchItemText}>
+                <h1>{movie.Title}</h1>
+                <p>
+                  {movie.Type} - {movie.Year}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
